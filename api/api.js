@@ -1,74 +1,53 @@
-/**
- * @author Nam NH
- * ApiClient to interact with api server
- */
-
-import fetch from "isomorphic-unfetch";
-import QueryString from "query-string";
-import getConfig from "next/config";
-
-export default class Api {
-  constructor(defaultConfig, preRequest) {
-    this.defaultConfig = defaultConfig;
-    this.preRequest = preRequest;
-  }
-
-  request(url, cookies) {
-    this.defaultConfig = this.preRequest(this.defaultConfig, cookies);
-    const { serverRuntimeConfig } = getConfig();
-    let prefix = serverRuntimeConfig.onServer
-      ? process.env.BASE_URL + "/api"
-      : "/api";
-    return fetch(prefix + url, this.defaultConfig);
-  }
-
-  get(url, data = null, cookies) {
-    this.defaultConfig.method = "GET";
-    this.defaultConfig.body = undefined;
-    if (data) {
-      url += "?" + QueryString.stringify(data);
+import axios from "axios";
+// import { ERROR, PAGES } from "../constRouter";
+// eslint-disable-next-line no-unused-vars
+function CallAPI(store, url, token, cookies, router) {
+  const service = axios.create({
+    baseURL: url,
+    timeout: 60000,
+  });
+  // Request interceptors
+  service.interceptors.request.use(
+    (config) => {
+      config.headers["X-Requested-With"] = " XMLHttpRequest";
+      config.headers["Content-Type"] = "application/json";
+      config.headers["Access-Control-Allow-Origin"] = "*";
+      if (token && token != 1 && token != "") {
+        config.headers["Authorization"] = "Bearer " + token;
+      }
+      return config;
+    },
+    (error) => {
+      // Do something with request error
+      Promise.reject(error);
     }
-    return this.request(url, cookies);
-  }
+  );
 
-  post(url, data) {
-    this.defaultConfig.method = "POST";
-    if (FormData && data instanceof FormData) {
-      delete this.defaultConfig.headers["Content-Type"]      
-    } else {
-      data = JSON.stringify(data);
-      this.defaultConfig.headers["Content-Type"] = "application/json";
+  // response pre-processing
+  service.interceptors.response.use(
+    (response) => {
+      return response.data;
+    },
+    (error) => {
+      // check server not response
+      // if (error.response && error.response.data) {
+      //   let data = error.response.data;
+      //   let messageGroup = [];
+      //   let mockupError = error.response.data;
+      //   if (typeof data.message == "object") {
+      //     for (let item in data.message) {
+      //       messageGroup.push(data.message[item][0]);
+      //     }
+      //   } else {
+      //     messageGroup.push(data.message);
+      //   }
+      //   mockupError.message = messageGroup;
+      //   store.commit("error/SET_ERROR", mockupError);
+      // }
+      return Promise.reject(error);
     }
-    this.defaultConfig.body = data;
-    return this.request(url);
-  }
-
-  put(url, data) {
-    this.defaultConfig.method = "PUT";
-    if (FormData && data instanceof FormData) {
-      delete this.defaultConfig.headers["Content-Type"]      
-    } else {
-      data = JSON.stringify(data);
-      this.defaultConfig.headers["Content-Type"] = "application/json";
-    }
-    this.defaultConfig.body = data;
-    return this.request(url);
-  }
-
-  patch(url, data) {
-    this.defaultConfig.method = "PATCH";
-    if (FormData && data instanceof FormData) {
-      delete this.defaultConfig.headers["Content-Type"]      
-    } else {
-      data = JSON.stringify(data);
-      this.defaultConfig.headers["Content-Type"] = "application/json";
-    }
-    this.defaultConfig.body = data;
-    return this.request(url);
-  }
-
-  delete(url) {
-    this.defaultConfig.method = "DELETE";
-    return this.request(url);
-  }
+  );
+  return service;
 }
+
+export default CallAPI;
