@@ -1,0 +1,52 @@
+.header-nav-bar {
+  height: 60px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px 60px 20px;
+  color: #6a6a6a !important;
+  .menu {
+    font-size: 18px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 300;
+    line-height: 30px;
+    border-radius: 3px;
+    text-transform: none;
+    color: #6a6a6a !important;
+  }
+  .nav-bar {
+    display: inline-flex;
+
+    .search-input {
+      margin-top: -22px;
+      margin-right: 20px;
+    }
+    .icon-button {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      width: 50px;
+      height: 50px;
+      padding: 0 10px;
+      .badge {
+        margin-top: 10px;
+        margin-right: 5px;
+        span {
+          border: 2px solid white;
+          margin-right: 2px;
+        }
+      }
+      .account {
+        margin-top: 10px;
+        // margin-right: 25px;
+      }
+      .setting {
+        margin-top: 10px;
+      }
+    }
+
+    // .notification {
+
+    // }
+  }
+}

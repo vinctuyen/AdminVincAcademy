@@ -1,0 +1,23 @@
+.page-style {
+  background-color: #fff;
+  display: flex;
+  position: relative;
+  top: 0;
+  height: 100vh;
+  .side-bar {
+    width: 260px;
+  }
+  .right-content {
+    width: calc(100% - 260px);
+    .header {
+      display: block;
+    }
+    .content-children {
+      padding: 10px;
+    }
+  }
+}
+.label {
+  margin: 0 20px;
+	box-shadow:0 0 10px #D9D9D9;
+}
