@@ -8,7 +8,7 @@ import { reducer as modal } from 'redux-modal'
 
 const rootReducer = combineReducers({
   modal,
-  auths: require('./_auths-redux').reducer,
+  auths: require('./auth-redux').reducer,
   errors: require('./_errors-redux').reducer,
   login: require('./login-demo').reducer,
   dashboard: require('./table-demo').reducer,

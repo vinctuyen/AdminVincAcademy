@@ -7,11 +7,11 @@ const { Types, Creators } = createActions({
   forgotPasswordRequest: ['data'],
   resetPasswordRequest: ['data'],
   socialLoginRequest: ['data'],
-  authsSuccess: ['data'],
-  authsFailure: ['error', 'status']
+  authSuccess: ['data'],
+  authFailure: ['error', 'status']
 })
 
-export const AuthsTypes = Types
+export const AuthTypes = Types
 export default Creators
 
 /* ------------- Initial State ------------- */
@@ -40,6 +40,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.FORGOT_PASSWORD_REQUEST]: request,
   [Types.RESET_PASSWORD_REQUEST]: request,
   [Types.SOCIAL_LOGIN_REQUEST]: request,
-  [Types.AUTHS_SUCCESS]: success,
-  [Types.AUTHS_FAILURE]: failure
+  [Types.AUTH_SUCCESS]: success,
+  [Types.AUTH_FAILURE]: failure
 })

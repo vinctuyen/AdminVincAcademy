@@ -3,10 +3,9 @@ import { connect } from "react-redux";
 // import { injectIntl } from "react-intl";
 // import { Redirect } from "react-router-dom";
 // import Link from 'next/link';
-import Router from 'next/router'
+import Router from "next/router";
 
-import TypesLogin from '../../redux/login-demo'
-
+import TypesLogin from "../../redux/auth-redux";
 
 import {
   Button,
@@ -14,16 +13,15 @@ import {
   FormControlLabel,
   Grid,
   Link,
-  TextField
+  TextField,
 } from "@material-ui/core";
 import "../../styles/pages/login.scss";
 
 const handler = () => {
   Router.push({
-    pathname: '/',
-  })
-}
-
+    pathname: "/",
+  });
+};
 
 class LoginComponent extends React.Component {
   constructor(props) {
@@ -31,19 +29,19 @@ class LoginComponent extends React.Component {
     this.state = {
       inputAcc: "",
       inputPass: "",
-      islogin: false
+      islogin: false,
     };
   }
 
   componentDidMount() {
-    this.setState({inputAcc: '', inputPass: ''})
+    this.setState({ inputAcc: "", inputPass: "" });
   }
 
   handleClickLogin = () => {
     this.props.login(this.state.inputAcc, this.state.inputPass);
   };
 
-  handleOnPressEnter = e => {
+  handleOnPressEnter = (e) => {
     if (e.key === "Enter") {
       this.handleClickLogin();
     }
@@ -69,7 +67,7 @@ class LoginComponent extends React.Component {
             autoComplete="email"
             className="login-input"
             value={this.state.inputAcc}
-            onChange={e => this.setState({ inputAcc: e.target.value })}
+            onChange={(e) => this.setState({ inputAcc: e.target.value })}
             autoFocus
             onKeyPress={this.handleOnPressEnter}
           />
@@ -85,7 +83,7 @@ class LoginComponent extends React.Component {
             autoComplete="current-password"
             className="login-input"
             value={this.state.inputPass}
-            onChange={e => this.setState({ inputPass: e.target.value })}
+            onChange={(e) => this.setState({ inputPass: e.target.value })}
             onKeyPress={this.handleOnPressEnter}
           />
           <FormControlLabel
@@ -127,22 +125,20 @@ class LoginComponent extends React.Component {
   }
 }
 
-let mapStateToProps = state => {
+let mapStateToProps = (state) => {
   return {
     isLogin: state.login.isLogin,
-    data: state
+    data: state,
   };
 };
 
-let mapDispatchToProps = dispatch => {
+let mapDispatchToProps = (dispatch) => {
   return {
-    login: (acc, pass) => dispatch(TypesLogin.loginRequestDemo(acc, pass))
+    login: (email, password) =>
+      dispatch(TypesLogin.loginRequest({ data: { email, password } })),
   };
 };
 
-LoginComponent = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginComponent);
+LoginComponent = connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
 
-export default (LoginComponent);
+export default LoginComponent;

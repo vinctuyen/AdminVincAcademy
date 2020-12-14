@@ -29,7 +29,6 @@ export const request = (state, data) => {
   }
   
   export const failure = (state, data) => {
-    console.log(data)
     return { ...state, isLoading: false, data, isLogin: false }
   }
 

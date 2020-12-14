@@ -1,7 +1,8 @@
-import CallAPI from "./request.js";
-import URL from "./constAPI";
+import CallAPI from "./api.js";
+import URL from "./const";
 
 const login = (params) => {
+  console.log(params);
   let service = CallAPI(
     params.store,
     params.url,

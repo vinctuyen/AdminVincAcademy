@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "next/router";
 import Layout from "../components/layout";
-import AuthsActions from "../redux/_auths-redux";
+import AuthsActions from "../redux/auth-redux";
 import TypesTable from "../redux/table-demo";
 import Head from "next/head";
 import EnhancedTable from "../components/Table";

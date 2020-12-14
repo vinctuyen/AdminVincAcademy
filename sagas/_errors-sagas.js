@@ -1,16 +1,15 @@
-import { put } from 'redux-saga/effects'
+import { put } from "redux-saga/effects";
 
-import ErrorsActions from '../redux/_errors-redux'
-import AuthsUtils from '../utils/auths'
-import { HttpStatus } from '../constants'
+import ErrorsActions from "../redux/_errors-redux";
 
 const ErrorsSagas = {
   *raiseError({ error, status }) {
-    if (status == HttpStatus.UNAUTHORIZED) {
-      AuthsUtils.logout()
+    console.log(error, status);
+    if (status == 401) {
+      console.log(1);
     }
-    yield put(ErrorsActions.failure(error, status))
-  }
-}
+    yield put(ErrorsActions.failure(error, status));
+  },
+};
 
-export default ErrorsSagas
+export default ErrorsSagas;
