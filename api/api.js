@@ -1,9 +1,9 @@
 import axios from "axios";
 // import { ERROR, PAGES } from "../constRouter";
 // eslint-disable-next-line no-unused-vars
-function CallAPI(store, url, token, cookies, router) {
+function CallAPI(token) {
   const service = axios.create({
-    baseURL: url,
+    baseURL: "http://localhost:3001",
     timeout: 60000,
   });
   // Request interceptors

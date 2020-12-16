@@ -10,15 +10,14 @@ const login = (params) => {
     params.cookies,
     params.router
   );
+  console.log(params.data)
   let data = params.data;
-  let formData = new FormData();
-  formData.append("email", data.email);
-  formData.append("password", data.password);
+  let object = { username: data.email, password: data.password };
 
   return service({
     url: URL.AUTH.LOGIN,
     method: "POST",
-    data: formData,
+    data: object,
   });
 };
 const basicLogin = (params) => {
