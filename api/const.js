@@ -1,5 +1,5 @@
 const AUTH = {
-  LOGIN: "/users",
+  LOGIN: "/api/auth/login",
   LOGOUT: "",
   FORGOT_PASSWORD_COMMIT: "",
   FORGOT_PASSWORD: "",

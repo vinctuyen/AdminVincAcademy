@@ -1,9 +1,11 @@
 import axios from "axios";
+// import store from "../redux";
+// import ErrorsTypes from "../redux/_errors-redux";
 // import { ERROR, PAGES } from "../constRouter";
 // eslint-disable-next-line no-unused-vars
 function CallAPI(token) {
   const service = axios.create({
-    baseURL: "http://localhost:3001",
+    baseURL: "http://localhost:7001",
     timeout: 60000,
   });
   // Request interceptors
@@ -30,21 +32,10 @@ function CallAPI(token) {
     },
     (error) => {
       // check server not response
-      // if (error.response && error.response.data) {
-      //   let data = error.response.data;
-      //   let messageGroup = [];
-      //   let mockupError = error.response.data;
-      //   if (typeof data.message == "object") {
-      //     for (let item in data.message) {
-      //       messageGroup.push(data.message[item][0]);
-      //     }
-      //   } else {
-      //     messageGroup.push(data.message);
-      //   }
-      //   mockupError.message = messageGroup;
-      //   store.commit("error/SET_ERROR", mockupError);
+      // if (error.response && error.response.message) {
+      //   store.dispatch(ErrorsTypes.failure(error.response.message));
       // }
-      return Promise.reject(error);
+      return error;
     }
   );
   return service;

@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 // import { injectIntl } from "react-intl";
 // import { Redirect } from "react-router-dom";
 // import Link from 'next/link';
-import Router from "next/router";
-
+import Router, { withRouter } from "next/router";
+import PropTypes from "prop-types";
 import TypesLogin from "../../redux/auth-redux";
 
 import {
@@ -29,7 +29,6 @@ class LoginComponent extends React.Component {
     this.state = {
       inputAcc: "",
       inputPass: "",
-      islogin: false,
     };
   }
 
@@ -49,6 +48,7 @@ class LoginComponent extends React.Component {
 
   render() {
     const { isLogin } = this.props;
+    console.log(isLogin);
     if (isLogin) {
       handler();
     }
@@ -127,7 +127,10 @@ class LoginComponent extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    isLogin: state.login.isLogin,
+    isLogin:
+      state.auth.data &&
+      state.auth.data.token &&
+      true,
     data: state,
   };
 };
@@ -139,6 +142,13 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-LoginComponent = connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
+LoginComponent.propTypes = {
+  router: PropTypes.object,
+};
+
+LoginComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(LoginComponent));
 
 export default LoginComponent;

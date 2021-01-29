@@ -2,7 +2,7 @@ import { createReducer, createActions } from 'reduxsauce'
 
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
-  failure: ['error', 'status']
+  failure: ['error', 'message']
 })
 
 export const ErrorsTypes = Types

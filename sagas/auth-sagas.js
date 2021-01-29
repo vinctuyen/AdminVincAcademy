@@ -10,14 +10,18 @@ import AuthAction from "../redux/auth-redux";
 
 const AuthSagas = {
   *login({ data }) {
-    console.log("data", data);
-    let response = yield call(login(data));
-    let responseData = yield response.json();
-    if (response.status == 200) {
-      responseData.login = true;
-      yield put(AuthAction.authSuccess(responseData));
+    let response = yield call(() => {
+      return login(data);
+    }, data);
+    if (response.data) {
+      yield put(AuthAction.authSuccess(response.data));
     } else {
-      yield put(AuthAction.authFailure(responseData, response.status));
+      yield put(
+        AuthAction.authFailure({
+          message: response.message,
+          status: response.status,
+        })
+      );
     }
   },
 };

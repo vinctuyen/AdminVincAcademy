@@ -8,7 +8,6 @@ import { take, takeLatest, all, takeEvery } from "redux-saga/effects";
 /* ------------- Types ------------- */
 import { AuthTypes } from "../redux/auth-redux";
 import { TypesLogin } from "../redux/login-demo";
-import { TypesTable } from "../redux/table-demo";
 /* ------------- Sagas ------------- */
 import ErrorsSagas from "./_errors-sagas";
 import AuthSagas from "./auth-sagas";

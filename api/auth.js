@@ -2,7 +2,6 @@ import CallAPI from "./api.js";
 import URL from "./const";
 
 const login = (params) => {
-  console.log(params);
   let service = CallAPI(
     params.store,
     params.url,
@@ -10,14 +9,11 @@ const login = (params) => {
     params.cookies,
     params.router
   );
-  console.log(params.data)
   let data = params.data;
-  let object = { username: data.email, password: data.password };
-
   return service({
     url: URL.AUTH.LOGIN,
     method: "POST",
-    data: object,
+    data: data,
   });
 };
 const basicLogin = (params) => {
